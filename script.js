@@ -46,50 +46,5 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(item);
     });
 
-    // 4. Form Submission Logic
-    const bookingForm = document.getElementById('booking-form');
-    const formResponse = document.getElementById('form-response');
 
-    if (bookingForm) {
-        bookingForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const submitBtn = bookingForm.querySelector('button');
-            const originalText = submitBtn.innerText;
-
-            // UI State: Submitting
-            submitBtn.innerText = 'Transmitting Request...';
-            submitBtn.style.opacity = '0.7';
-            submitBtn.disabled = true;
-
-            const formData = new FormData(bookingForm);
-            const data = Object.fromEntries(formData.entries());
-
-            try {
-                // Pointing to the Vibe Backend
-                const response = await fetch('http://localhost:3000/api/book', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    formResponse.style.color = '#8E735B';
-                    formResponse.innerText = result.message;
-                    bookingForm.reset();
-                } else {
-                    throw new Error(result.message);
-                }
-            } catch (error) {
-                formResponse.style.color = '#A64B4B';
-                formResponse.innerText = 'Our digital lines are busy. Please call us at (303) 555-0123.';
-            } finally {
-                submitBtn.innerText = originalText;
-                submitBtn.style.opacity = '1';
-                submitBtn.disabled = false;
-            }
-        });
-    }
 });

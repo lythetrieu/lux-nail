@@ -1,28 +1,5 @@
 {
-    "version": 2,
-    "name": "lux-nails-lashes",
-    "builds": [
-        {
-            "src": "*.html",
-            "use": "@vercel/static"
-        },
-        {
-            "src": "style.css",
-            "use": "@vercel/static"
-        },
-        {
-            "src": "script.js",
-            "use": "@vercel/static"
-        },
-        {
-            "src": "assets/**",
-            "use": "@vercel/static"
-        }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/$1"
-        }
-    ]
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "framework": null
 }
