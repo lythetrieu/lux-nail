@@ -168,6 +168,7 @@ nav.scrolled {
     transition: var(--transition);
     position: relative;
     padding-bottom: 5px;
+    display: inline-block;
 }
 
 .nav-links a::after {
@@ -189,7 +190,14 @@ nav.scrolled {
 /* Dropdown Menu */
 .dropdown {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 40px;
+    vertical-align: middle;
+}
+
+.dropdown>a {
+    margin-left: 0 !important;
 }
 
 .dropdown-content {
