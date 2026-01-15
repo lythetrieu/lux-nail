@@ -13,21 +13,36 @@
     /* Apple-like Grey */
     --border: #D2D2D7;
 
-    /* Golden Standard Spacing System */
+    /* Golden Ratio (Phi) = 1.618 */
+    --phi: 1.618;
+
+    /* Golden Ratio Typography Scale (Base 16px) */
+    --text-sm: 1rem;
+    /* 16px */
+    --text-md: calc(1rem * var(--phi));
+    /* ~25.8px (H4) */
+    --text-lg: calc(1rem * var(--phi) * var(--phi));
+    /* ~41.8px (H3) */
+    --text-xl: calc(1rem * var(--phi) * var(--phi) * var(--phi));
+    /* ~67.7px (H2) */
+    --text-display: calc(1rem * var(--phi) * var(--phi) * var(--phi) * 1.2);
+    /* ~81px (H1 Display) */
+
+    /* Golden Ratio Spacing System */
     --unit: 4px;
     --space-xs: calc(var(--unit) * 4);
     /* 16px */
-    --space-sm: calc(var(--unit) * 6);
-    /* 24px */
-    --space-md: calc(var(--unit) * 10);
-    /* 40px */
-    --space-lg: calc(var(--unit) * 20);
-    /* 80px */
-    --space-xl: calc(var(--unit) * 30);
-    /* 120px - Standard Section Padding */
+    --space-sm: calc(var(--space-xs) * var(--phi));
+    /* ~26px */
+    --space-md: calc(var(--space-sm) * var(--phi));
+    /* ~42px */
+    --space-lg: calc(var(--space-md) * var(--phi));
+    /* ~68px */
+    --space-xl: calc(var(--space-lg) * var(--phi));
+    /* ~110px */
 
-    --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    /* Apple 'ease' */
+    --transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    /* Ultra-smooth Cinematic Ease */
     --font-serif: 'Playfair Display', serif;
     --font-sans: 'Montserrat', sans-serif;
 }
@@ -42,9 +57,9 @@ body {
     background-color: var(--bg);
     color: var(--text);
     font-family: var(--font-sans);
-    line-height: 1.6;
-    letter-spacing: -0.015em;
-    /* Apple-like tight tracking */
+    line-height: 1.75;
+    /* Golden Ratio-ish line height for readability */
+    letter-spacing: -0.02em;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
 }
@@ -58,6 +73,23 @@ h4 {
     font-weight: 400;
     margin-bottom: var(--space-sm);
     color: #1D1D1F;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: var(--text-display);
+}
+
+h2 {
+    font-size: var(--text-xl);
+}
+
+h3 {
+    font-size: var(--text-lg);
+}
+
+h4 {
+    font-size: var(--text-md);
 }
 
 .serif-italic {
@@ -66,9 +98,9 @@ h4 {
 }
 
 .sub-cap {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     color: var(--primary);
     font-weight: 600;
     display: block;
@@ -77,8 +109,8 @@ h4 {
 
 /* Layout */
 .container {
-    max-width: 1200px;
-    /* Tighter focus */
+    max-width: 1440px;
+    /* Wide luxury viewport */
     margin: 0 auto;
     padding: 0 var(--space-md);
 }
@@ -162,10 +194,11 @@ nav.scrolled {
     padding-top: 100px;
 }
 
+/* Golden Ratio Hero Split (38% Text / 62% Image) */
 .hero-grid {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: var(--space-lg);
+    grid-template-columns: 1fr 1.618fr;
+    gap: var(--space-xl);
     align-items: center;
 }
 
@@ -243,20 +276,30 @@ nav.scrolled {
 }
 
 /* Service Rows */
+/* Golden Ratio Service Rows */
 .service-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.618fr 1fr;
+    /* Image dominates */
     gap: var(--space-xl);
     align-items: center;
     margin-bottom: var(--space-xl);
 }
 
 .service-row.reverse {
-    direction: rtl;
+    grid-template-columns: 1fr 1.618fr;
+    /* Text narrower on reverse */
+    direction: ltr !important;
+    /* Reset direction hack */
 }
 
-.service-row.reverse div {
-    direction: ltr;
+/* Ensure text order is correct without RTL hack */
+.service-row.reverse .service-img {
+    order: 2;
+}
+
+.service-row.reverse .service-text {
+    order: 1;
 }
 
 .service-img {
